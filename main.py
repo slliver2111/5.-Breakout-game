@@ -17,7 +17,7 @@ def game():
     screen.title("Breakout Game")
     screen.tracer(0)
 
-    user_paddle = Paddle((-SCREEN_WIDTH / 2 + 20, 0), SCREEN_HEIGHT)
+    user_paddle = Paddle((0, -SCREEN_HEIGHT / 2 + 20), SCREEN_WIDTH)
     ball = Ball(SCREEN_WIDTH, SCREEN_HEIGHT)
     # scoreboard = Scoreboard((0, screen.window_height() / 2 - 80))
 

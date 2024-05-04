@@ -29,3 +29,4 @@ class Brick:
         for segm in self.brick_segments:
             segm.hideturtle()
             segm.clear()
+        self.brick_segments.clear()

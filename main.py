@@ -27,35 +27,40 @@ def game():
     screen.onkey(user_paddle.left, "Left")
     screen.onkey(user_paddle.right, "Right")
 
-    def animate_game():
+    def detect_brick_collision():
+        for brick in wall.box:
+            for segment in brick.brick_segments:
+                if ball.distance(segment) < 20:
+                    brick.kill()
+                    return True
+        return False
+
+    def detect_paddle_miss():
+        return ball.ycor() < -ball.vertical_limit
+
+    def detect_ball_left_right_edge_collision():
+        return math.fabs(ball.xcor()) > ball.horizon_limit
+
+    def detect_ball_top_edge_collision():
+        return ball.ycor() > ball.vertical_limit
+
+    def detect_ball_paddle_collision():
+        for segment in user_paddle.paddle_segments:
+            if segment.distance(ball) < 20:
+                return True
+        return False
+
+    while True:
+        time.sleep(1 / GAME_SPEED)
         screen.update()
         ball.move_ball()
 
-        # check_paddle_hit_ball:
-        for segm in user_paddle.paddle_segments:
-            if segm.distance(ball) < 20:
-                ball.bounce_up_down()
-                animate_game()
-
-        # Detect player collision
-        for brick in wall.box:
-            for segm in brick.brick_segments:
-                if ball.distance(segm) < 20:
-                    brick.kill()
-                    ball.bounce_up_down()
-                    animate_game()
-
-        # check_edge_collision
-        if math.fabs(ball.ycor()) > ball.vertical_limit:
+        if detect_paddle_miss():
+            ball.reset_ball()
+        elif detect_brick_collision() or detect_ball_paddle_collision() or detect_ball_top_edge_collision():
             ball.bounce_up_down()
-        elif math.fabs(ball.xcor()) > ball.horizon_limit:
+        elif detect_ball_left_right_edge_collision():
             ball.bounce_left_right()
-
-        time.sleep(1/GAME_SPEED)
-        animate_game()
-
-    animate_game()
-
 
 
 if __name__ == '__main__':

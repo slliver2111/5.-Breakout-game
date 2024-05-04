@@ -1,8 +1,8 @@
 import math
 from turtle import Turtle
 
-# Don't set less than 5
-BALL_SPEED = 5
+# Don't set less than 6
+BALL_SPEED = 6
 
 
 class Ball(Turtle):

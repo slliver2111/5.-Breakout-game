@@ -1,6 +1,7 @@
 from turtle import Screen
 from paddle import Paddle
 from ball import Ball
+from wall import Wall
 
 import math
 import time
@@ -19,6 +20,7 @@ def game():
 
     user_paddle = Paddle((0, -SCREEN_HEIGHT / 2 + 20), SCREEN_WIDTH)
     ball = Ball(SCREEN_WIDTH, SCREEN_HEIGHT)
+    wall = Wall(SCREEN_WIDTH, SCREEN_HEIGHT)
     # scoreboard = Scoreboard((0, screen.window_height() / 2 - 80))
 
     screen.listen()
@@ -35,7 +37,15 @@ def game():
                 ball.bounce_up_down()
                 animate_game()
 
-        # check_wall_collision
+        # Detect player collision
+        for brick in wall.box:
+            for segm in brick.brick_segments:
+                if ball.distance(segm) < 20:
+                    brick.kill()
+                    ball.bounce_up_down()
+                    animate_game()
+
+        # check_edge_collision
         if math.fabs(ball.ycor()) > ball.vertical_limit:
             ball.bounce_up_down()
         elif math.fabs(ball.xcor()) > ball.horizon_limit:

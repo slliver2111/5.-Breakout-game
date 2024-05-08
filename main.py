@@ -2,6 +2,8 @@ from turtle import Screen
 from paddle import Paddle
 from ball import Ball
 from wall import Wall
+from title_board import TitleBoard
+from lives_board import LivesBoard
 
 import math
 import time
@@ -9,6 +11,8 @@ import time
 GAME_SPEED = 50
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 600
+
+NUMBER_OF_LIVES = 3
 
 
 def game():
@@ -21,17 +25,25 @@ def game():
     user_paddle = Paddle((0, -SCREEN_HEIGHT / 2 + 20), SCREEN_WIDTH)
     ball = Ball(SCREEN_WIDTH, SCREEN_HEIGHT)
     wall = Wall(SCREEN_WIDTH, SCREEN_HEIGHT)
-    # scoreboard = Scoreboard((0, screen.window_height() / 2 - 80))
+    title_board = TitleBoard()
+    lives_board = LivesBoard(pos=(-SCREEN_WIDTH / 2 + 120, -SCREEN_HEIGHT / 2 + 40), lives=NUMBER_OF_LIVES)
 
     screen.listen()
     screen.onkey(user_paddle.left, "Left")
     screen.onkey(user_paddle.right, "Right")
+
+    def check_if_win():
+        return len(wall.box) == 0
+
+    def check_if_lost():
+        return lives_board.get_lives() == 0
 
     def detect_brick_collision():
         for brick in wall.box:
             for segment in brick.brick_segments:
                 if ball.distance(segment) < 20:
                     brick.kill()
+                    wall.box.remove(brick)
                     return True
         return False
 
@@ -55,12 +67,22 @@ def game():
         screen.update()
         ball.move_ball()
 
+        if check_if_win():
+            title_board.update_text("You won!")
+            break
+        elif check_if_lost():
+            title_board.update_text("Game over!")
+            break
+
         if detect_paddle_miss():
+            lives_board.decrease_live()
             ball.reset_ball()
         elif detect_brick_collision() or detect_ball_paddle_collision() or detect_ball_top_edge_collision():
             ball.bounce_up_down()
         elif detect_ball_left_right_edge_collision():
             ball.bounce_left_right()
+
+    screen.exitonclick()
 
 
 if __name__ == '__main__':

@@ -58,7 +58,7 @@ def game():
 
     def detect_ball_paddle_collision():
         for segment in user_paddle.paddle_segments:
-            if segment.distance(ball) < 20:
+            if segment.distance(ball) < 22:
                 return True
         return False
 

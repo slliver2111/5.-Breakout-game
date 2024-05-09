@@ -1,3 +1,31 @@
+#TODO 1. Modularize More Clearly
+# Although you have split components into different classes (like Paddle, Ball, Wall), your main game function game() is quite lengthy and mixes different layers of logic. Consider breaking it down into smaller functions or methods within appropriate classes.
+#
+#TODO 2. Manage Game State Better
+# You are using a global variable game_is_on to control the game loop from outside the game() function. It's better to manage this within the game function itself, unless there's a specific reason to control it externally.
+#
+#TODO 3. Use More Descriptive Variable Names
+# Some variable names like box in wall.box are not very descriptive. Consider renaming these to more clearly represent their function, like bricks for a collection of brick objects in the wall.
+#
+#TODO 4. Avoid Magic Numbers
+# There are numbers like 20, 22, etc., in collision detection that appear magical and unexplained. Define these as constants at the top of your file to make the code more readable and easier to maintain.
+#
+#TODO 5. Efficient Collision Detection
+# The current collision detection mechanism might be inefficient as it checks every segment of every brick for every frame. Depending on how you've structured your bricks and segments, consider using more efficient collision detection algorithms or data structures like spatial hashing or bounding box checks.
+#
+#TODO 6. Enhance Responsiveness
+# Currently, the game controls (Left, Right) might feel unresponsive due to the screen updates being tied to the game loop's speed. Consider adjusting the tracer settings or handling the input more asynchronously if possible.
+#
+#TODO 7. Error Handling
+# There is no error handling around game logic. Including error handling can prevent the game from crashing unexpectedly and can provide better user feedback.
+#
+#TODO 8. Simplify the Exit Mechanism
+# Using screen.exitonclick() forces the player to click the window to close it, which might not be intuitive if the game has already displayed a "You won!" or "Game over!" message. Consider adding a key binding to exit the game cleanly.
+#
+#TODO 9. Consider Adding Comments
+# Adding comments to complex sections of your code can make it easier for other developers—or even your future self—to understand why certain decisions were made.
+
+
 from turtle import Screen
 from paddle import Paddle
 from ball import Ball

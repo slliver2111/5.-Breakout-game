@@ -62,6 +62,7 @@ def update_game_state(wall, title_board, lives_board):
         return True
     elif lives_board.no_lives_left():
         title_board.display_message("Game over!")
+        return True
     return False
 
 

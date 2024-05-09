@@ -15,7 +15,7 @@ class Ball(Turtle):
         self.up_down = -BALL_SPEED
         self.left_right = -BALL_SPEED
 
-    def move_ball(self):
+    def move(self):
         new_xcor = self.xcor() + self.left_right
         new_ycor = self.ycor() + self.up_down
         self.goto(new_xcor, new_ycor)
@@ -26,7 +26,15 @@ class Ball(Turtle):
     def bounce_up_down(self):
         self.up_down *= -1
 
-    def reset_ball(self):
+    def reset(self):
         self.goto(0, 0)
         self.up_down = -BALL_SPEED
         self.left_right = -BALL_SPEED
+
+    def bounce_off_paddle(self):
+        #self.bounce_left_right()
+        self.bounce_up_down()
+
+    def bounce_off_wall(self):
+        #self.bounce_left_right()
+        self.bounce_up_down()

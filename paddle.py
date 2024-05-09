@@ -2,6 +2,7 @@ from turtle import Turtle
 
 PADDLE_LENGTH = 8
 PADDLE_STEP = 50
+COLLISION_MARGIN = 20
 
 
 class Paddle:
@@ -29,3 +30,9 @@ class Paddle:
         if self.paddle_segments[-1].xcor() < self.limit_horizontal - 50:
             for segm in self.paddle_segments:
                 segm.forward(PADDLE_STEP)
+
+    def detect_collision(self, ball):
+        for segment in self.paddle_segments:
+            if segment.distance(ball) < COLLISION_MARGIN:
+                return True
+        return False

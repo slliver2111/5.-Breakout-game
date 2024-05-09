@@ -12,7 +12,7 @@ class TitleBoard(Turtle):
         self.hideturtle()
         self.goto(pos)
 
-    def update_text(self, text):
+    def display_message(self, text):
         self.clear()
         self.write(f"{text}", False, align=ALIGNMENT, font=FONT)
 

@@ -4,6 +4,7 @@ import random
 NUM_COLUMNS = 20
 NUM_ROWS = 6
 WIDTH = 200
+COLLISION_MARGIN = 20
 
 
 class Wall:
@@ -16,11 +17,23 @@ class Wall:
             b = random.randint(0, 255)
 
             for j in range(NUM_COLUMNS - 5):
-                x_cor = -screen_width/2 + j * 60 + j * 5 + 20
-                y_cor = screen_height/2 - i * 25 - 20
+                x_cor = -screen_width / 2 + j * 60 + j * 5 + 20
+                y_cor = screen_height / 2 - i * 25 - 20
 
                 self.box.append(Brick(x_cor, y_cor, (r, g, b)))
 
     def generate_random_car(self):
         y_cor = random.randint(-WIDTH, WIDTH)
         self.box.append(Brick(self.screen_width / 2, y_cor))
+
+    def detect_collision(self, ball):
+        for brick in self.box:
+            for segment in brick.brick_segments:
+                if ball.distance(segment) < COLLISION_MARGIN:
+                    brick.kill()
+                    self.box.remove(brick)
+                    return True
+        return False
+
+    def no_bricks_left(self):
+        return len(self.box) == 0

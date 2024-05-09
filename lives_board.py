@@ -26,5 +26,5 @@ class LivesBoard(Turtle):
         self.clear()
         self.write(f"Lives: {self.lives}", False, align=ALIGNMENT, font=FONT)
 
-    def get_lives(self):
-        return self.lives
+    def no_lives_left(self):
+        return self.lives == 0

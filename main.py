@@ -4,9 +4,6 @@
 # TODO 2. Manage Game State Better
 # You are using a global variable game_is_on to control the game loop from outside the game() function. It's better to manage this within the game function itself, unless there's a specific reason to control it externally.
 #
-# TODO 3. Use More Descriptive Variable Names
-# Some variable names like box in wall.box are not very descriptive. Consider renaming these to more clearly represent their function, like bricks for a collection of brick objects in the wall.
-
 # TODO 5. Efficient Collision Detection
 # The current collision detection mechanism might be inefficient as it checks every segment of every brick for every frame. Depending on how you've structured your bricks and segments, consider using more efficient collision detection algorithms or data structures like spatial hashing or bounding box checks.
 #

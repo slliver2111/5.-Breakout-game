@@ -6,10 +6,7 @@
 #
 #TODO 3. Use More Descriptive Variable Names
 # Some variable names like box in wall.box are not very descriptive. Consider renaming these to more clearly represent their function, like bricks for a collection of brick objects in the wall.
-#
-#TODO 4. Avoid Magic Numbers
-# There are numbers like 20, 22, etc., in collision detection that appear magical and unexplained. Define these as constants at the top of your file to make the code more readable and easier to maintain.
-#
+
 #TODO 5. Efficient Collision Detection
 # The current collision detection mechanism might be inefficient as it checks every segment of every brick for every frame. Depending on how you've structured your bricks and segments, consider using more efficient collision detection algorithms or data structures like spatial hashing or bounding box checks.
 #
@@ -42,6 +39,8 @@ SCREEN_HEIGHT = 600
 
 NUMBER_OF_LIVES = 3
 
+COLLISION_MARGIN = 20
+
 
 def game():
     screen = Screen()
@@ -69,7 +68,7 @@ def game():
     def detect_brick_collision():
         for brick in wall.box:
             for segment in brick.brick_segments:
-                if ball.distance(segment) < 20:
+                if ball.distance(segment) < COLLISION_MARGIN:
                     brick.kill()
                     wall.box.remove(brick)
                     return True
@@ -86,7 +85,7 @@ def game():
 
     def detect_ball_paddle_collision():
         for segment in user_paddle.paddle_segments:
-            if segment.distance(ball) < 22:
+            if segment.distance(ball) < COLLISION_MARGIN:
                 return True
         return False
 

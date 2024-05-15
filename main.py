@@ -1,6 +1,3 @@
-# TODO 1. Modularize More Clearly
-# Although you have split components into different classes (like Paddle, Ball, Wall), your main game function game() is quite lengthy and mixes different layers of logic. Consider breaking it down into smaller functions or methods within appropriate classes.
-#
 # TODO 2. Manage Game State Better
 # You are using a global variable game_is_on to control the game loop from outside the game() function. It's better to manage this within the game function itself, unless there's a specific reason to control it externally.
 #
@@ -12,12 +9,6 @@
 #
 # TODO 7. Error Handling
 # There is no error handling around game logic. Including error handling can prevent the game from crashing unexpectedly and can provide better user feedback.
-#
-# TODO 8. Simplify the Exit Mechanism
-# Using screen.exitonclick() forces the player to click the window to close it, which might not be intuitive if the game has already displayed a "You won!" or "Game over!" message. Consider adding a key binding to exit the game cleanly.
-#
-# TODO 9. Consider Adding Comments
-# Adding comments to complex sections of your code can make it easier for other developers—or even your future self—to understand why certain decisions were made.
 
 
 from turtle import Screen
@@ -49,6 +40,7 @@ def detect_ball_top_edge_collision(ball):
 
 
 def check_collisions(ball, paddle, wall):
+    """Check if ball collided with paddle or the brick in the wall"""
     if paddle.detect_collision(ball):
         ball.bounce_off_paddle()
     elif wall.detect_collision(ball):
@@ -57,6 +49,7 @@ def check_collisions(ball, paddle, wall):
 
 
 def update_game_state(wall, title_board, lives_board):
+    """Check if there are neither bricks nor lives left. Is so, end the game"""
     if wall.no_bricks_left():
         title_board.display_message("You won!")
         return True
@@ -67,6 +60,7 @@ def update_game_state(wall, title_board, lives_board):
 
 
 def detect_screen_edge_collisions(ball, lives_board):
+    """Check if ball collied with edge of screen"""
     # Paddle missed, ball collided with the bottom of window
     if detect_paddle_miss(ball):
         lives_board.decrease_live()
@@ -80,6 +74,7 @@ def detect_screen_edge_collisions(ball, lives_board):
 
 
 def game_loop(screen, paddle, ball, wall, title_board, lives_board):
+    """Game loop. Animate objects"""
     while True:
         time.sleep(1 / GAME_SPEED)
         screen.update()
@@ -92,6 +87,7 @@ def game_loop(screen, paddle, ball, wall, title_board, lives_board):
 
 
 def start_game():
+    """Main game function"""
     screen = Screen()
     screen.setup(width=SCREEN_WIDTH, height=SCREEN_HEIGHT)
     screen.bgcolor("black")

@@ -109,6 +109,11 @@ def start_game():
     screen.onkey(player_paddle.right, "Right")
 
     game_loop(screen, player_paddle, player_ball, wall, title_board, lives_board)
+
+    # End of the game
+    screen.onkey(screen.bye, "Escape")
+    screen.listen()
+
     screen.exitonclick()
 
 

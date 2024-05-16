@@ -1,15 +1,8 @@
-# TODO 2. Manage Game State Better
-# You are using a global variable game_is_on to control the game loop from outside the game() function. It's better to manage this within the game function itself, unless there's a specific reason to control it externally.
-#
 # TODO 5. Efficient Collision Detection
 # The current collision detection mechanism might be inefficient as it checks every segment of every brick for every frame. Depending on how you've structured your bricks and segments, consider using more efficient collision detection algorithms or data structures like spatial hashing or bounding box checks.
 #
 # TODO 6. Enhance Responsiveness
 # Currently, the game controls (Left, Right) might feel unresponsive due to the screen updates being tied to the game loop's speed. Consider adjusting the tracer settings or handling the input more asynchronously if possible.
-#
-# TODO 7. Error Handling
-# There is no error handling around game logic. Including error handling can prevent the game from crashing unexpectedly and can provide better user feedback.
-
 
 from turtle import Screen
 from paddle import Paddle
